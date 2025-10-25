@@ -145,5 +145,3 @@ def render_intro(df_screening: pd.DataFrame | None = None,
         - The aim is to support informed public discussion and further research.
         """
     )
-
-    st.caption("Prepared by Kiroshan SIVAKUMAR - EFREI Paris. For academic use only.")

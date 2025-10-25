@@ -4,6 +4,9 @@
 import streamlit as st
 from utils.io import load_data
 from sections.intro import render_intro
+from sections.overview import render_overview
+from sections.deep_dives import render_deep_dives
+# from sections.conclusion import render_conclusion
 
 
 # ==================================================
@@ -85,9 +88,18 @@ p, span, div, label { color: var(--text) !important; }
 .ribbon-border { border-left: 6px solid var(--accent); padding-left: 12px; }
 .pink-chip { background: var(--chip); color: var(--chip-text); padding: 4px 10px; border-radius: 999px; font-weight: 600; display: inline-block; margin-right: 8px; }
 
-/* Chart containers */
-.js-plotly-plot, .vega-embed, .stImage {
-  background: var(--card) !important; border-radius: 12px; padding: 8px; border: 1px solid var(--border);
+/* Chart containers: style the Streamlit wrapper, not Plotly's inner canvas */
+.stPlotlyChart {
+  background: var(--card) !important;
+  border-radius: 12px;
+  padding: 8px;
+  border: 1px solid var(--border);
+}
+
+/* Let Plotly handle its own background; ensure transparency */
+.js-plotly-plot {
+  background: transparent !important;
+  padding: 0 !important;
 }
 
 /* Dataframes */
@@ -112,23 +124,13 @@ df_screening, df_mortality, df_exam_income = load_data()
 #                      Sidebar
 # ==================================================
 with st.sidebar:
+    st.image("assets/pink-ribbon-logo.webp")
     st.markdown("### Breast Cancer Awareness")
-    # Filters will be added in overview.py once built
-    # Example placeholders:
-    # countries = st.multiselect("Countries", sorted(df_screening["country"].unique()))
-    # year_range = st.slider("Year range", int(df_screening["year"].min()), int(df_screening["year"].max()),
-    #                        (int(df_screening["year"].min()), int(df_screening["year"].max())))
 
 
 # ==================================================
 #                   Main sections
 # ==================================================
 render_intro(df_screening, df_mortality, df_exam_income)
-
-# Later:
-# from sections.overview import render_overview
-# from sections.deep_dives import render_deep_dives
-# from sections.conclusions import render_conclusions
-# render_overview(...)
-# render_deep_dives(...)
-# render_conclusions(...)
+render_overview(df_screening, df_mortality, df_exam_income)
+render_deep_dives(df_screening, df_mortality, df_exam_income)
