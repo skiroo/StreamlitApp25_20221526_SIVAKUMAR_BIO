@@ -1,0 +1,9 @@
+streamlit >= 1.33
+pandas
+numpy
+pyarrow
+plotly
+altair
+geopandas   # if using maps
+pydeck      # optional map layer
+requests
