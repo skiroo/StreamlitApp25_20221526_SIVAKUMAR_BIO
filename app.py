@@ -6,7 +6,7 @@ from utils.io import load_data
 from sections.intro import render_intro
 from sections.overview import render_overview
 from sections.deep_dives import render_deep_dives
-# from sections.conclusion import render_conclusion
+from sections.conclusion import render_conclusion
 
 
 # ==================================================
@@ -134,3 +134,4 @@ with st.sidebar:
 render_intro(df_screening, df_mortality, df_exam_income)
 render_overview(df_screening, df_mortality, df_exam_income)
 render_deep_dives(df_screening, df_mortality, df_exam_income)
+render_conclusion(df_screening, df_mortality, df_exam_income)
