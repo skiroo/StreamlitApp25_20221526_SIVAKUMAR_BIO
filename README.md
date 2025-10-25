@@ -8,7 +8,8 @@
 > This app explores **screening participation**, **mortality**, and **income-linked disparities** across Europe to ask:  
 > **If risk is shifting for younger women (30–45), should screening policy and messaging change too?**
 
-**Live app:**  [**`<ADD_DEPLOYED_URL_HERE>`**](#)  
+**Live app:**  [**`https://skiroo-streamlitapp25-bio.streamlit.app/
+`**](#)  
 **Repository:** [github.com/skiroo/StreamlitApp25_20221526_SIVAKUMAR_BIO](https://github.com/skiroo/StreamlitApp25_20221526_SIVAKUMAR_BIO)
 
 ---
