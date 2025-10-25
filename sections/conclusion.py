@@ -171,7 +171,7 @@ def render_conclusion(
     k1, k2, k3 = st.columns(3)
 
     # KPI 1: Screening median latest and delta vs first
-    scr_val, scr_delta = "—", ""
+    scr_val, scr_delta = "-", ""
     scr_first, scr_last = None, None
     if not scr_f.empty and {"screening_rate", "year"}.issubset(scr_f.columns):
         ys = scr_f["year"].dropna()
@@ -187,7 +187,7 @@ def render_conclusion(
     k1.metric("Organized screening median (latest)", scr_val, scr_delta)
 
     # KPI 2: Mortality under 50 median latest and delta vs first (fallback to TOTAL if needed)
-    mort_val, mort_delta = "—", ""
+    mort_val, mort_delta = "-", ""
     mort_first, mort_last = None, None
     mort_sub = _mortality_under50(mort_f)
     if mort_sub is not None and not mort_sub.empty and {"mortality_rate", "year"}.issubset(mort_sub.columns):
@@ -207,7 +207,7 @@ def render_conclusion(
     k2.metric("Mortality median (under 50 preferred, latest)", mort_val, mort_delta)
 
     # KPI 3: Income gap Q5 − Q1 (under 50, latest survey year)
-    gap_val, gap_note = "—", ""
+    gap_val, gap_note = "-", ""
     gap_year = None
     if not exam_f.empty and {"income_quintile", "exam_rate", "year"}.issubset(exam_f.columns):
         # Canonicalize quintiles quickly if needed
@@ -336,7 +336,7 @@ def render_conclusion(
         paragraphs.append(sentence)
 
     # Income gap sentence
-    if gap_val != "—":
+    if gap_val != "-":
         sentence = (
             f"In the **latest survey year**"
             f"{f' ({gap_year})' if gap_year else ''}, women under 50 in the highest income quintile (Q5) "
