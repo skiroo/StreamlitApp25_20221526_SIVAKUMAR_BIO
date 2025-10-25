@@ -3,13 +3,14 @@
 # ==================================================
 import streamlit as st
 from utils.io import load_data
+from sections.intro import render_intro
 
 
 # ==================================================
 #                    Page config
 # ==================================================
 st.set_page_config(
-    page_title="The Age of Risk - Breast Cancer Awareness",
+    page_title="The Age of Risk | Breast Cancer Screening",
     page_icon="assets/pink-ribbon-logo.webp",
     layout="wide"
 )
@@ -40,7 +41,7 @@ html, body, .stApp { background: var(--bg) !important; color: var(--text) !impor
 h1, h2, h3, h4, h5, h6 { color: var(--text) !important; }
 p, span, div, label { color: var(--text) !important; }
 
-/* Header bar (top, where Deploy lives) */
+/* Header bar */
 [data-testid="stHeader"] { background: var(--header) !important; }
 [data-testid="stHeader"] * { color: var(--text) !important; }
 
@@ -104,15 +105,30 @@ hr { border: 0; border-top: 1px solid var(--border); }
 # ==================================================
 #                     Load data
 # ==================================================
-
+df_screening, df_mortality, df_exam_income = load_data()
 
 
 # ==================================================
 #                      Sidebar
 # ==================================================
-st.sidebar.markdown("### Breast Cancer Awareness")
+with st.sidebar:
+    st.markdown("### Breast Cancer Awareness")
+    # Filters will be added in overview.py once built
+    # Example placeholders:
+    # countries = st.multiselect("Countries", sorted(df_screening["country"].unique()))
+    # year_range = st.slider("Year range", int(df_screening["year"].min()), int(df_screening["year"].max()),
+    #                        (int(df_screening["year"].min()), int(df_screening["year"].max())))
 
 
 # ==================================================
 #                   Main sections
 # ==================================================
+render_intro(df_screening, df_mortality, df_exam_income)
+
+# Later:
+# from sections.overview import render_overview
+# from sections.deep_dives import render_deep_dives
+# from sections.conclusions import render_conclusions
+# render_overview(...)
+# render_deep_dives(...)
+# render_conclusions(...)

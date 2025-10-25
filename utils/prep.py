@@ -52,19 +52,22 @@ def clean_screening(path='data/breast_cancer_screening.csv'):
 # === Death due to cancer ===
 def clean_mortality(path='data/death_due_to_cancer.csv'):
     """
-    Cleans the death rate by cancer dataset based on the exploration findings.
+    Cleans the death rate by cancer dataset based on the updated exploration findings.
 
     Steps:
         1. Drop irrelevant or mostly missing columns: DATAFLOW, LAST UPDATE, freq, CONF_STATUS, OBS_FLAG.
         2. Keep only female records (sex == 'F').
         3. Keep only breast cancer data (icd10 == 'C50').
         4. Rename columns for clarity.
-        5. Reset index and sort by country and year.
+        5. Keep only relevant analytical columns.
+        6. Convert data types and sort for consistency.
 
     Returns:
         Cleaned pandas DataFrame with columns:
         ['country', 'year', 'unit', 'age', 'sex', 'icd10', 'mortality_rate']
     """
+
+    import pandas as pd
 
     # Load dataset
     df = pd.read_csv(path)
@@ -73,10 +76,10 @@ def clean_mortality(path='data/death_due_to_cancer.csv'):
     df = df.drop(columns=['DATAFLOW', 'LAST UPDATE', 'freq', 'CONF_STATUS', 'OBS_FLAG'], errors='ignore')
 
     # Keep only female data
-    df = df[df['sex'] == 'F']
+    df = df[df['sex'].astype(str).str.upper().str.contains('F', na=False)]
 
     # Keep only breast cancer (C50)
-    df = df[df['icd10'] == 'C50']
+    df = df[df['icd10'].astype(str).str.upper().str.contains('C50', na=False)]
 
     # Rename columns for clarity
     df = df.rename(columns={
@@ -89,7 +92,7 @@ def clean_mortality(path='data/death_due_to_cancer.csv'):
     df = df[['country', 'year', 'unit', 'age', 'sex', 'icd10', 'mortality_rate']]
 
     # Convert data types
-    df['year'] = df['year'].astype(int)
+    df['year'] = pd.to_numeric(df['year'], errors='coerce').astype('Int64')
     df['mortality_rate'] = pd.to_numeric(df['mortality_rate'], errors='coerce')
 
     # Sort and reset index
