@@ -22,10 +22,6 @@ def render_intro(df_screening: pd.DataFrame | None = None,
             list-style: none; padding: 0.9rem 1rem; font-weight: 600; color: var(--text);
             display: flex; align-items: center; gap: 8px;
         }
-        /* Hide default marker and add our own arrow left of the text */
-        [data-testid="stExpander"] summary::-webkit-details-marker { display: none; }
-        [data-testid="stExpander"] summary:before { content: "▸"; }
-        [data-testid="stExpander"] > details[open] summary:before { content: "▾"; }
         /* Expander body */
         [data-testid="stExpander"] .stMarkdown { padding: 0 1rem 1rem 1rem; }
         </style>
